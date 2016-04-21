@@ -21,7 +21,7 @@ def generate_location_date_filename(location):
 # otherwise returns None.
 def get_taps_status(location):
     try:
-        url = 'http://taps-aff.co.uk/?api&location=' + location
+        url = SITE_URL+'/?api&location=' + location
         response = urllib.urlopen(url)
         data = json.loads(response.read())
         if data['taps'] == 'aff':
