@@ -23,18 +23,10 @@ def check_tweet_sent(location):
   pass
 
 def send_tweet(tweet):
-  # Fill in the values noted in previous step here
-  cfg = {
-    "consumer_key"        : "DZ9P90gH2s55jnQB64oahbLC6",
-    "consumer_secret"     : "epFUhmzLr1nwcd8XWnQaDRgIM0wYe0zabwzCT4UQeQEPIZ4Lpj",
-    "access_token"        : "1445997164-niAGZ47NUejugPu22zzbSoZfx322WGTkmmIzzz3",
-    "access_token_secret" : "kyWmZtSCS09auF63zK0s2hZVxTQ4kWeZV7S12SNCcwpWK"
-    }
-
+  #cfg pulled in from config.py
   api = get_api(cfg)
-  status = api.update_status(status=tweet)
-  # Yes, tweet is called 'status' rather confusing
-
+  #status = api.update_status(status=tweet)
+  print "Tweeting: "+tweet
 
 def get_api(cfg):
   auth = tweepy.OAuthHandler(cfg['consumer_key'], cfg['consumer_secret'])
@@ -47,7 +39,9 @@ def main(location):
     return
 
   if get_taps_status(location):
-    print "Yaldy"
+    send_tweet(location)
+  else:
+    print ("Taps Oan")
 
 if __name__ == "__main__":
   if len(sys.argv)>1:

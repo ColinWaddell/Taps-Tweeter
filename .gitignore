@@ -63,3 +63,7 @@ target/
 
 #Config
 config.py
+
+#Cache of sent tweets
+sent_cache/
+sent_cache/*
