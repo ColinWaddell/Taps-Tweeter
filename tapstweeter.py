@@ -83,7 +83,7 @@ def main(location):
         if success:
             stash_tapsaff_info(taps_data, cache_file)
     else:
-        print 'Taps Oan'
+        print 'Taps Oan in '+location
 
 if __name__ == '__main__':
     # Must specify a single-word location
