@@ -31,9 +31,15 @@ def stash_tapsaff_info(status, filename):
 
 def send_tweet(tweet):
   #cfg pulled in from config.py
-  api = get_api(API_KEYS)
-  #status = api.update_status(status=tweet)
-  print "Tweeting("+str(len(tweet))+"): "+tweet
+  try:
+    api = get_api(API_KEYS)
+    print "Attempting to tweet("+str(len(tweet))+"): "+tweet
+    status = api.update_status(status=tweet)
+    return True
+
+  except tweepy.error.TweepError:
+    print "Error sending tweet"
+    return False
 
 def get_api(cfg):
   auth = tweepy.OAuthHandler(cfg['consumer_key'], cfg['consumer_secret'])
@@ -48,9 +54,10 @@ def main(location):
 
   taps_data=get_taps_status(location)
   if taps_data!=None:
-    message="Officially #TapsAff in "+location+"! "+SITE_URL+" [I'm a robot]"
-    send_tweet(message)
-    stash_tapsaff_info(taps_data, cache_file)
+    message="Officially #TapsAff in "+location.upper()+"! "+SITE_URL+" [I'm a robot]"
+    success = send_tweet(message)
+    if success:
+      stash_tapsaff_info(taps_data, cache_file)
   else:
     print ("Taps Oan")
 
