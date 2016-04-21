@@ -4,32 +4,36 @@ import sys
 import urllib
 import json
 import os
+import csv
 
 CACHE_DIR = "sent_cache"
+SITE_URL = "http://taps-aff.co.uk"
 
 #Load API keys
 execfile('config.py')
 
 def generate_location_date_filename(location):
-  return CACHE_DIR+"/"+location+"-"+time.strftime("%Y-%m-%d")+".json"
+  return CACHE_DIR+"/"+location+"-"+time.strftime("%Y-%m-%d")+".csv"
 
 def get_taps_status(location):
   url = "http://taps-aff.co.uk/?api&location="+location
   response = urllib.urlopen(url)
   data = json.loads(response.read())
-  if data['taps']=='aff':
-    return True
+  if data['taps']=='oan':
+    return data
   else:
-    return False
+    return None
 
-def check_tweet_sent(location):
-  pass
+def stash_tapsaff_info(status, filename):
+    w = csv.writer(open(filename, "w"))
+    for key, val in status.items():
+        w.writerow([key, val])
 
 def send_tweet(tweet):
   #cfg pulled in from config.py
-  api = get_api(cfg)
+  api = get_api(API_KEYS)
   #status = api.update_status(status=tweet)
-  print "Tweeting: "+tweet
+  print "Tweeting("+str(len(tweet))+"): "+tweet
 
 def get_api(cfg):
   auth = tweepy.OAuthHandler(cfg['consumer_key'], cfg['consumer_secret'])
@@ -39,10 +43,14 @@ def get_api(cfg):
 def main(location):
   cache_file = generate_location_date_filename(location)
   if os.path.isfile(cache_file):
+    print "Already sent a tweet about "+location
     return
 
-  if get_taps_status(location):
-    send_tweet(location)
+  taps_data=get_taps_status(location)
+  if taps_data!=None:
+    message="Officially #TapsAff in "+location+"! "+SITE_URL+" [I'm a robot]"
+    send_tweet(message)
+    stash_tapsaff_info(taps_data, cache_file)
   else:
     print ("Taps Oan")
 
