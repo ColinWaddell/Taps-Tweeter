@@ -1,0 +1,13 @@
+#!/bin/bash
+# Check and tweet for most commonly
+# requested Taps Aff location.
+python tapstweeter.py Glasgow
+python tapstweeter.py Edinburgh
+python tapstweeter.py London
+python tapstweeter.py Dundee
+python tapstweeter.py Aberdeen
+python tapstweeter.py Manchester
+python tapstweeter.py Stirling
+python tapstweeter.py Belfast
+python tapstweeter.py Falkirk
+python tapstweeter.py Perth
