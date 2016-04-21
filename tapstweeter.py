@@ -29,6 +29,7 @@ def get_taps_status(location):
             return data
         else:
             return None
+            
     except:
         return None
 
@@ -51,8 +52,8 @@ def send_tweet(tweet):
         print 'Attempting to tweet(' + str(len(tweet)) + '): ' + tweet
         status = api.update_status(status=tweet)
         return True
-    except tweepy.error.TweepError:
 
+    except tweepy.error.TweepError:
         print 'Error sending tweet'
         return False
 
@@ -84,7 +85,6 @@ def main(location):
             stash_tapsaff_info(taps_data, cache_file)
     else:
         print 'Taps Oan'
-
 
 if __name__ == '__main__':
     # Must specify a single-word location
