@@ -7,6 +7,9 @@ import os
 
 CACHE_DIR = "sent_cache"
 
+#Load API keys
+execfile('config.py')
+
 def generate_location_date_filename(location):
   return CACHE_DIR+"/"+location+"-"+time.strftime("%Y-%m-%d")+".json"
 
@@ -47,3 +50,5 @@ if __name__ == "__main__":
   if len(sys.argv)>1:
     location = sys.argv[1]
     main(location)
+  else:
+    print "No location specified"
