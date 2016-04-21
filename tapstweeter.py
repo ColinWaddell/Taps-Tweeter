@@ -14,8 +14,7 @@ SITE_URL = 'http://taps-aff.co.uk'
 execfile('config.py')
 
 def generate_location_date_filename(location):
-    return CACHE_DIR + '/' + location + '-' + time.strftime('%Y-%m-%d') \
-        + '.csv'
+    return CACHE_DIR + '/' + location + '-' + time.strftime('%Y-%m-%d') + '.csv'
 
 # Check if the weather is "aff" in given location
 # Returns the status from taps-aff if True,
@@ -29,7 +28,7 @@ def get_taps_status(location):
             return data
         else:
             return None
-            
+
     except:
         return None
 
