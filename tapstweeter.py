@@ -11,7 +11,7 @@ CACHE_DIR = 'sent_cache'
 SITE_URL = 'http://taps-aff.co.uk'
 
 # Load API keys
-execfile('config.py')
+execfile(os.path.dirname(os.path.abspath(__file__)) + '/config.py')
 
 def generate_location_date_filename(location):
     return CACHE_DIR + '/' + location + '-' + time.strftime('%Y-%m-%d') + '.csv'
