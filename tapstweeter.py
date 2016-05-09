@@ -76,7 +76,7 @@ def main(location):
     # info of the even in cache_file.
     taps_data = get_taps_status(location)
     if taps_data != None:
-        message = 'Officially #TapsAff in ' + location.upper() + '! ' + SITE_URL + ' #imarobot'
+        message = 'Officially #TapsAff in ' + location.upper() + '! ' + SITE_URL + '/' + location + ' #imarobot'
         success = send_tweet(message)
         if success:
             stash_tapsaff_info(taps_data, cache_file)

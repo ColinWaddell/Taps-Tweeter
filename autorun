@@ -15,5 +15,7 @@ python ${TTDIR}/tapstweeter.py Belfast
 python ${TTDIR}/tapstweeter.py Falkirk
 python ${TTDIR}/tapstweeter.py Perth
 python ${TTDIR}/tapstweeter.py Inverness
+python ${TTDIR}/tapstweeter.py Birmingham
+
 date > ${TTDIR}/.last_ran
 
