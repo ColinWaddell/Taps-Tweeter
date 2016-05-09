@@ -1,13 +1,19 @@
 #!/bin/bash
 # Check and tweet for most commonly
 # requested Taps Aff location.
-python tapstweeter.py Glasgow
-python tapstweeter.py Edinburgh
-python tapstweeter.py London
-python tapstweeter.py Dundee
-python tapstweeter.py Aberdeen
-python tapstweeter.py Manchester
-python tapstweeter.py Stirling
-python tapstweeter.py Belfast
-python tapstweeter.py Falkirk
-python tapstweeter.py Perth
+
+TTDIR=/home/pi/Taps-Tweeter/
+
+python ${TTDIR}/tapstweeter.py Glasgow
+python ${TTDIR}/tapstweeter.py Edinburgh
+python ${TTDIR}/tapstweeter.py London
+python ${TTDIR}/tapstweeter.py Dundee
+python ${TTDIR}/tapstweeter.py Aberdeen
+python ${TTDIR}/tapstweeter.py Manchester
+python ${TTDIR}/tapstweeter.py Stirling
+python ${TTDIR}/tapstweeter.py Belfast
+python ${TTDIR}/tapstweeter.py Falkirk
+python ${TTDIR}/tapstweeter.py Perth
+python ${TTDIR}/tapstweeter.py Inverness
+date > ${TTDIR}/.last_ran
+

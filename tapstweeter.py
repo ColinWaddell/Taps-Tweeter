@@ -50,6 +50,7 @@ def send_tweet(tweet):
         api = get_api(API_KEYS)
         print 'Attempting to tweet(' + str(len(tweet)) + '): ' + tweet
         status = api.update_status(status=tweet)
+	print 'Sucess'
         return True
 
     except tweepy.error.TweepError:
