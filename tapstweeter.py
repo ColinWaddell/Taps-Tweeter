@@ -11,7 +11,7 @@ CACHE_DIR = 'sent_cache'
 SITE_URL = 'http://taps-aff.co.uk'
 
 # Load API keys
-execfile('config.py')
+from config import API_KEYS
 
 def generate_location_date_filename(location):
     return CACHE_DIR + '/' + location + '-' + time.strftime('%Y-%m-%d') + '.csv'
@@ -21,10 +21,10 @@ def generate_location_date_filename(location):
 # otherwise returns None.
 def get_taps_status(location):
     try:
-        url = SITE_URL+'/?api&location=' + location
+        url = '%s/api/%s' % (SITE_URL, location)
         response = urllib.urlopen(url)
         data = json.loads(response.read())
-        if data['taps'] == 'aff':
+        if data['taps']['status']== 'aff':
             return data
         else:
             return None
@@ -48,12 +48,12 @@ def send_tweet(tweet):
     # API_KEYS pulled in from config.py
     try:
         api = get_api(API_KEYS)
-        print 'Attempting to tweet(' + str(len(tweet)) + '): ' + tweet
+        print ('Attempting to tweet[%d]: %s' % (str(len(tweet)), tweet))
         status = api.update_status(status=tweet)
         return True
 
     except tweepy.error.TweepError:
-        print 'Error sending tweet'
+        print ('Error sending tweet')
         return False
 
 def get_api(cfg):
@@ -66,7 +66,7 @@ def main(location):
     cache_file = generate_location_date_filename(location)
 
     if tweet_already_sent(cache_file):
-        print 'Already sent a tweet about ' + location
+        print ('Already sent a tweet about %s ' % location)
         return
 
     # Check if it's Taps Aff. If it is
@@ -75,13 +75,12 @@ def main(location):
     # info of the even in cache_file.
     taps_data = get_taps_status(location)
     if taps_data != None:
-        message = 'Officially #TapsAff in ' + location.upper() + '! ' \
-            + SITE_URL + ' #imarobot'
+        message = 'Officially #TapsAff in %s! %s #iamarobot' % (location.upper(), SITE_URL)
         success = send_tweet(message)
         if success:
             stash_tapsaff_info(taps_data, cache_file)
     else:
-        print 'Taps Oan in '+location
+        print ('Taps Oan in %s' % location)
 
 if __name__ == '__main__':
     # Must specify a single-word location
@@ -89,4 +88,4 @@ if __name__ == '__main__':
         location = sys.argv[1]
         main(location)
     else:
-        print 'No location specified'
+        print ('No location specified')
