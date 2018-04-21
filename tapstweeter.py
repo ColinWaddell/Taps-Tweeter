@@ -7,7 +7,8 @@ import json
 import os
 import csv
 
-CACHE_DIR = 'sent_cache'
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+CACHE_DIR = CURRENT_DIR + '/sent_cache'
 SITE_URL = 'http://taps-aff.co.uk'
 
 # Load API keys
