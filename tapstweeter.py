@@ -2,7 +2,7 @@
 import tweepy
 import time
 import sys
-import urllib
+import requests
 import json
 import os
 import csv
@@ -20,16 +20,21 @@ def generate_location_date_filename(location):
 # Returns the status from taps-aff if True,
 # otherwise returns None.
 def get_taps_status(location):
-    try:
-        url = '%s/api/%s' % (SITE_URL, location)
-        response = urllib.urlopen(url)
-        data = json.loads(response.read())
-        if data['taps']['status']== 'aff':
-            return data
-        else:
-            return None
+    """Returns True if taps aff for this location"""
 
-    except:
+    request = requests.get('http://www.taps-aff.co.uk/api/%s' % location)
+    if request.status_code == 200:
+        try:
+            taps = request.json()
+            if taps['taps']['status'] == 'aff':
+                return taps
+            elif taps == 'oan':
+                return None
+            else:
+                return None
+        except ValueError:
+            return None
+    else:
         return None
 
 # Write the taps-aff status to a csv file
@@ -48,8 +53,8 @@ def send_tweet(tweet):
     # API_KEYS pulled in from config.py
     try:
         api = get_api(API_KEYS)
-        print ('Attempting to tweet[%d]: %s' % (str(len(tweet)), tweet))
-        status = api.update_status(status=tweet)
+        print ('Attempting to tweet[%d]: %s' % (len(tweet), tweet))
+        _ = api.update_status(status=tweet)
         return True
 
     except tweepy.error.TweepError:
@@ -76,6 +81,7 @@ def main(location):
     taps_data = get_taps_status(location)
     if taps_data != None:
         message = 'Officially #TapsAff in %s! %s #iamarobot' % (location.upper(), SITE_URL)
+        print(message)
         success = send_tweet(message)
         if success:
             stash_tapsaff_info(taps_data, cache_file)
