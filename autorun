@@ -3,19 +3,20 @@
 # requested Taps Aff location.
 
 TTDIR=/home/pi/Taps-Tweeter/
+PYTHON=/home/pi/Taps-Tweeter/env/bin/python
 
-python ${TTDIR}/tapstweeter.py Glasgow
-python ${TTDIR}/tapstweeter.py Edinburgh
-python ${TTDIR}/tapstweeter.py London
-python ${TTDIR}/tapstweeter.py Dundee
-python ${TTDIR}/tapstweeter.py Aberdeen
-python ${TTDIR}/tapstweeter.py Manchester
-python ${TTDIR}/tapstweeter.py Stirling
-python ${TTDIR}/tapstweeter.py Belfast
-python ${TTDIR}/tapstweeter.py Falkirk
-python ${TTDIR}/tapstweeter.py Perth
-python ${TTDIR}/tapstweeter.py Inverness
-python ${TTDIR}/tapstweeter.py Birmingham
+${PYTHON} ${TTDIR}/tapstweeter.py Glasgow
+${PYTHON} ${TTDIR}/tapstweeter.py Edinburgh
+${PYTHON} ${TTDIR}/tapstweeter.py London
+${PYTHON} ${TTDIR}/tapstweeter.py Dundee
+${PYTHON} ${TTDIR}/tapstweeter.py Aberdeen
+${PYTHON} ${TTDIR}/tapstweeter.py Manchester
+${PYTHON} ${TTDIR}/tapstweeter.py Stirling
+${PYTHON} ${TTDIR}/tapstweeter.py Belfast
+${PYTHON} ${TTDIR}/tapstweeter.py Falkirk
+${PYTHON} ${TTDIR}/tapstweeter.py Perth
+${PYTHON} ${TTDIR}/tapstweeter.py Inverness
+${PYTHON} ${TTDIR}/tapstweeter.py Birmingham
 
 date > ${TTDIR}/.last_ran
 
